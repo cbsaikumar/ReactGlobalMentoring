@@ -2,11 +2,11 @@
   "name": "reactglobalmentoring",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.jsx",
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack-dev-server --open",
-    "dev": "cross-env NODE_ENV=development webpack",
-    "prod": "cross-env NODE_ENV=production webpack",
+    "build:dev": "webpack --env dev --progress --profile --colors",
+    "build:prod": "webpack --env prod --progress --profile --colors",
     "test": "jest src"
   },
   "repository": {
@@ -20,7 +20,10 @@
   },
   "homepage": "https://github.com/cbsaikumar/ReactGlobalMentoring#readme",
   "dependencies": {
+    "axios": "^0.20.0",
+    "classnames": "^2.2.6",
     "jest": "^26.2.2",
+    "materialize-css": "^1.0.0-rc.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",
@@ -29,12 +32,19 @@
   },
   "devDependencies": {
     "@babel/core": "^7.11.0",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-react": "^7.10.4",
     "babel-loader": "^8.1.0",
     "cross-env": "^7.0.2",
+    "css-loader": "^4.3.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^6.1.0",
     "html-loader": "^1.1.0",
     "html-webpack-plugin": "^4.3.0",
+    "prop-types": "^15.7.2",
+    "style-loader": "^1.2.1",
+    "url-loader": "^4.1.0",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
