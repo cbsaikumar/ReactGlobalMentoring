@@ -1,47 +1,61 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import classNames from 'classnames'
 import './style.css'
 import 'materialize-css'
 import 'materialize-css/dist/css/materialize.min.css'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
 import SearchPage from './components/SearchPage'
 import axios from 'axios'
-import movies from './constants/movies';
+import MoviePage from './components/MoviePage'
+import { useDocumentTitle } from './components/CustomHooks'
+import CONSTANTS from './constants/constants'
 
-class App extends Component {
-    state = {
-        data: movies.slice(0, 15),
-        isLoading: false,
+const App = () => {
+    const [data, setData] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
+    const [selectedMovie, setSelectedMovie] = useState(null)
+
+    useDocumentTitle(CONSTANTS.NETFLIX)
+
+    const selectMovie = (movie) => {
+        window.scrollTo(0, 0)
+        setSelectedMovie(movie)
     }
 
-    refreshResults = (url) => {
-        this.setState({
-            isLoading: true,
-        })
-        axios.get(url).then((response) => {
-            this.setState({
-                data: response.data.data,
-                isLoading: false,
-            })
-        })
+    const refreshResults = async (url) => {
+        try {
+            setIsLoading(true)
+            const response = await axios.get(url)
+            setData(response.data.data)
+            setIsLoading(false)
+        } catch (err) {
+            setIsLoading(false)
+        }
     }
 
-    render() {
-        const loading = classNames({
-            loading: this.state.isLoading,
-            none: !this.state.isLoading,
-        })
-        return (
-            <React.Fragment>
-                <div className={loading}>Loading&#8230;</div>
+    const loading = classNames({
+        loading: isLoading,
+        none: !isLoading,
+    })
+
+    return (
+        <React.Fragment>
+            <div className={loading}>Loading&#8230;</div>
+            {!selectedMovie ? (
                 <SearchPage
-                    movies={this.state.data}
-                    refreshResults={this.refreshResults}
+                    movies={data}
+                    refreshResults={refreshResults}
+                    setSelectedMovie={selectMovie}
                 />
-                {/* <MoviePage movies={this.state.data}/> */}
-            </React.Fragment>
-        )
-    }
+            ) : (
+                <MoviePage
+                    movies={data}
+                    selectedMovie={selectedMovie}
+                    setSelectedMovie={selectMovie}
+                />
+            )}
+        </React.Fragment>
+    )
 }
 
 export default App
