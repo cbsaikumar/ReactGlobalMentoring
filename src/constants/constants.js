@@ -18,6 +18,8 @@ const CONSTANTS = {
     SUBMIT: 'SUBMIT',
     ADD_MOVIE_TITLE: 'ADD MOVIE',
     EDIT_MOVIE_TITLE: 'EDIT MOVIE',
+    RESULTS_FOR: 'RESULTS FOR',
+    baseURL: 'http://react-cdp-api.herokuapp.com/movies',
 }
 
 export default CONSTANTS
