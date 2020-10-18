@@ -7,7 +7,6 @@ import { createMovie, setMode, updateMovie } from '../store/actions/ActionCreato
 import { useDispatch, useSelector } from 'react-redux'
 
 import CONSTANTS from '../constants/constants'
-import DateView from 'react-datepicker';
 import FormikControl from './FormikControl';
 import PropTypes from 'prop-types'
 
@@ -23,7 +22,7 @@ const AddOrEditMovie = ({ show }) => {
 
     const initialValues = {
         title: '',
-        release_date: null,
+        release_date: '',
         poster_path: '',
         genres: [],
         overview: '',
@@ -31,16 +30,13 @@ const AddOrEditMovie = ({ show }) => {
     }
 
     const options = [
-        { key: 'action', value: 'Action' },
-        { key: 'thriller', value: 'Thriller' },
-        { key: 'drama', value: 'Drama' },
-        { key: 'adventure', value: 'Adventure' }
+        'Action', 'Adventure', 'Thriller', 'Drama', 'Science Fiction'
     ]
 
     const validationSchema = Yup.object().shape({
         title: Yup.string()
             .required('Title is required'),
-        release_date: Yup.object()
+        release_date: Yup.date()
             .required('Release Date is required')
             .nullable(),
         poster_path: Yup.string()
@@ -72,6 +68,7 @@ const AddOrEditMovie = ({ show }) => {
     }
 
     function onSubmit(fields, { setStatus }) {
+        console.log(fields)
         setStatus();
         if (isAddMode) {
             addMovie(fields);
@@ -79,6 +76,12 @@ const AddOrEditMovie = ({ show }) => {
             editMovie(fields);
         }
     }
+
+    function handleReset(resetForm) {
+        if (window.confirm('Reset?')) {
+            resetForm();
+        }
+    };
 
     return (
         <Modal
@@ -91,7 +94,7 @@ const AddOrEditMovie = ({ show }) => {
                 validationSchema={validationSchema}
                 onSubmit={onSubmit}
             >
-                {({ dirty, errors, touched, isSubmitting, setFieldValue }) => {
+                {({ dirty, errors, touched, isSubmitting, setFieldValue, ...rest }) => {
                     console.log(errors)
                     const [movie, setMovie] = useState({});
                     useEffect(() => {
@@ -159,7 +162,7 @@ const AddOrEditMovie = ({ show }) => {
                                 <Modal.Footer>
                                     <Button
                                         variant="secondary"
-                                        onClick={() => dispatch(setMode('none'))}
+                                        onClick={handleReset.bind(null, rest.resetForm)}
                                     >
                                         {CONSTANTS.RESET}
                                     </Button>

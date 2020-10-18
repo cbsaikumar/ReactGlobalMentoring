@@ -6,16 +6,27 @@ export default function CheckBoxGroup(props) {
     return (
         <div>
             <label>{label}</label>
-            <Field name={name} {...rest} className="form-control">
+            <Field name={name} className="form-control" {...rest}>
                 {
                     (form) => {
-                        const { field } = form;
+                        const { field: { value: genres } } = form;
                         return <>
                             <div className="custom-checkbox-group">
-                                {options.map(option => (
-                                    <div key={option.key} className="checkbox-item">
-                                        <label style={{ marginBottom: '0px', paddingRight: '6px' }}>{option.value}</label>
-                                        <input type="checkbox" className="custom-checkbox" value={option.value} checked={field.value.includes(option.value)} {...field} onChange={(val) => console.log(val.currentTarget.value)} />
+                                {options.map((option) => (
+                                    <div key={option} className="checkbox-item">
+                                        <label>
+                                            <span style={{ marginBottom: '0px', paddingRight: '6px' }}>{option}</span>
+                                            <Field type="checkbox" {...rest}
+                                                className="custom-checkbox" id={option} name={option} value={option} checked={genres.includes(option)} onChange={(e) => {
+                                                    const idx = genres.indexOf(option)
+                                                    if (e.target.checked) {
+                                                        genres.push(option)
+                                                    } else {
+                                                        genres.splice(idx, 1)
+                                                    }
+                                                    form.form.setFieldValue(name, genres);
+                                                }}></Field>
+                                        </label>
                                     </div>
                                 ))}
                             </div>
