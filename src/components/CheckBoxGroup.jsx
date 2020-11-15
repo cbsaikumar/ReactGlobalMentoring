@@ -17,8 +17,8 @@ export default function CheckBoxGroup(props) {
                                         <label>
                                             <span style={{ marginBottom: '0px', paddingRight: '6px' }}>{option}</span>
                                             <Field type="checkbox" {...rest}
-                                                className="custom-checkbox" id={option} name={option} value={option} checked={genres.includes(option)} onChange={(e) => {
-                                                    const idx = genres.indexOf(option)
+                                                className="custom-checkbox" id={option} name={option} value={option} checked={genres?.includes(option)} onChange={(e) => {
+                                                    const idx = genres?.indexOf(option)
                                                     if (e.target.checked) {
                                                         genres.push(option)
                                                     } else {
