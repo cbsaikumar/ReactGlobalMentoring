@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/cbsaikumar/ReactGlobalMentoring#readme",
   "dependencies": {
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "bootstrap": "^4.5.2",
     "classnames": "^2.2.6",
     "formik": "^2.0.1-rc.15",
