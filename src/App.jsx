@@ -3,7 +3,7 @@ import 'materialize-css'
 import 'materialize-css/dist/css/materialize.min.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-import { Redirect, Route, Switch } from 'react-router-dom'
+import { HashRouter, Redirect, Route, Switch } from 'react-router-dom'
 
 import CONSTANTS from './constants/constants'
 import LandingPage from './components/LandingPage'
@@ -27,7 +27,7 @@ const App = () => {
     })
 
     return (
-        <React.Fragment>
+        <HashRouter>
             <div className={loading}>Loading&#8230;</div>
             <Switch>
                 <Route path='/search/' exact={true} component={SearchPage} />
@@ -37,7 +37,7 @@ const App = () => {
                 <Route path='/404' component={NotFound404Page} />
                 <Redirect from='/*' to="/404" />
             </Switch>
-        </React.Fragment>
+        </HashRouter>
     )
 }
 

@@ -1,6 +1,6 @@
-import axios from 'axios'
-import CONSTANTS from '../../constants/constants'
 import ACTION_TYPES from '../actions/actionTypes'
+import CONSTANTS from '../../constants/constants'
+import axios from 'axios'
 
 export const searchBy = (searchby) => ({
     type: ACTION_TYPES.SEARCH_BY,

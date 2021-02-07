@@ -1,5 +1,5 @@
-import initialState from './initialState'
 import ACTION_TYPES from '../actions/actionTypes'
+import initialState from './initialState'
 
 function movies(state = initialState.movies, action) {
     switch (action.type) {

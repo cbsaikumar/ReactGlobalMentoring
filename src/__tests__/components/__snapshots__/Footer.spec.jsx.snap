@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer component should render correctly 1`] = `
+<footer
+  className="bar"
+>
+  <h5
+    className="red-text text-darken-2 grey darken-3 grey-bar"
+  >
+    netflixroulette
+  </h5>
+</footer>
+`;

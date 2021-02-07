@@ -49,31 +49,19 @@ const AddOrEditMovie = ({ show }) => {
             .required('Runtime is required'),
     });
 
-    function addMovie(fields) {
-        try {
-            dispatch(createMovie(fields));
-            dispatch(setMode('none'))
-        } catch (err) {
-            console.log(err)
-        }
-    }
-
-    function editMovie(fields) {
-        try {
-            dispatch(updateMovie({ ...selectedMovie, ...fields }));
-            dispatch(setMode('none'))
-        } catch (err) {
-            console.log(err)
-        }
-    }
-
     function onSubmit(fields, { setStatus }) {
-        console.log(fields)
         setStatus();
-        if (isAddMode) {
-            addMovie(fields);
-        } else {
-            editMovie(fields);
+        try {
+            if (isAddMode) {
+                // addMovie(fields);
+                dispatch(createMovie(fields));
+                dispatch(setMode('none'))
+            } else {
+                dispatch(updateMovie({ ...selectedMovie, ...fields }));
+                dispatch(setMode('none'))
+            }
+        } catch (err) {
+            console.log(err)
         }
     }
 
@@ -95,7 +83,6 @@ const AddOrEditMovie = ({ show }) => {
                 onSubmit={onSubmit}
             >
                 {({ dirty, errors, touched, isSubmitting, setFieldValue, ...rest }) => {
-                    console.log(errors)
                     const [movie, setMovie] = useState({});
                     useEffect(() => {
                         if (!isAddMode) {
@@ -161,6 +148,7 @@ const AddOrEditMovie = ({ show }) => {
                                 </Modal.Body>
                                 <Modal.Footer>
                                     <Button
+                                        className="reset-btn"
                                         variant="secondary"
                                         onClick={handleReset.bind(null, rest.resetForm)}
                                     >
@@ -169,7 +157,7 @@ const AddOrEditMovie = ({ show }) => {
                                     <Button
                                         type="submit"
                                         disabled={!dirty || Object.keys(errors).length > 0} className="btn btn-primary"
-                                        className="red lighten-1 btn right"
+                                        className="red lighten-1 btn right submit-btn"
                                     >
                                         {isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
                                         {CONSTANTS.SUBMIT}

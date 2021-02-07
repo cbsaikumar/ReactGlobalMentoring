@@ -3,11 +3,28 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.jsx",
+  "jest": {
+    "setupFiles": [
+      "./jestsetup.js"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!src/**/setupjest.js",
+      "!src/actions/store.js",
+      "!src/reducers/index.js"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less)$": "identity-obj-proxy"
+    }
+  },
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack-dev-server --open",
     "build:dev": "webpack --env dev --progress --profile --colors",
     "build:prod": "webpack --env prod --progress --profile --colors",
-    "test": "jest src"
+    "test": "jest src",
+    "test:watch": "jest src --watch",
+    "test:coverage": "jest src --coverage --colors"
   },
   "repository": {
     "type": "git",
@@ -44,17 +61,29 @@
     "@babel/core": "^7.11.0",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/plugin-transform-runtime": "^7.11.5",
+    "@babel/polyfill": "^7.0.0-beta.51",
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-react": "^7.10.4",
     "@babel/runtime": "^7.11.2",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.4.2",
     "babel-loader": "^8.1.0",
     "cross-env": "^7.0.2",
     "css-loader": "^4.3.0",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "fetch-mock": "^9.10.7",
     "file-loader": "^6.1.0",
     "html-loader": "^1.1.0",
     "html-webpack-plugin": "^4.3.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^23.4.2",
+    "moxios": "^0.4.0",
+    "node-fetch": "^2.6.1",
+    "nyc": "^15.1.0",
     "prop-types": "^15.7.2",
+    "redux-mock-store": "^1.5.4",
     "style-loader": "^1.2.1",
     "url-loader": "^4.1.0",
     "webpack": "^4.44.1",
